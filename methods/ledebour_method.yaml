@@ -1,0 +1,84 @@
+name: "Ledebour"
+description: "Description Ledebour Method"
+version: 1.0
+
+input_parameters:
+  - name: "furnaceVolume"
+    type: "double"
+    description: "Объем печи (м³)"
+    required: true
+
+output_parameters:
+  - name: "bloomDiameter"
+    type: "double"
+    description: "Диаметр столба (м)"
+
+  - name: "bloomTotalHeight"
+    type: "double"
+    description: "Общая высота столба (м)"
+
+  - name: "tappingHeight"
+    type: "double"
+    description: "Высота выпуска (м)"
+
+  - name: "tappingDiameter"
+    type: "double"
+    description: "Диаметр выпуска (м)"
+
+  - name: "shoulderHeight"
+    type: "double"
+    description: "Высота плеча (м)"
+
+  - name: "runnerDiameter"
+    type: "double"
+    description: "Диаметр желоба (м)"
+
+  - name: "shaftHeight"
+    type: "double"
+    description: "Высота шахты (м)"
+
+formulas:
+- name: "fullHeightFurnace"
+  expression: "2.85 * furnaceVolume^(1.0/3.0)"
+  description: "Полная высота печи"
+  dependencies: ["furnaceVolume"]
+
+- name: "tappingHeight"
+  expression: "0.04 * fullHeightFurnace"
+  description: "Высота распара"
+  dependencies: ["fullHeightFurnace"]
+
+- name: "tappingDiameter"
+  expression: "0.2857 * fullHeightFurnace"
+  description: "Диаметр распара"
+  dependencies: ["fullHeightFurnace"]
+
+- name: "bloomDiameter"
+  expression: "0.17 * fullHeightFurnace"
+  description: "Диаметр горна"
+  dependencies: ["fullHeightFurnace"]
+
+- name: "bloomTotalHeight"
+  expression: "0.10 * fullHeightFurnace"
+  description: "Полная высота горна"
+  dependencies: ["fullHeightFurnace"]
+
+- name: "shoulderHeight"
+  expression: "0.21 * fullHeightFurnace"
+  description: "Высота заплечиков"
+  dependencies: ["fullHeightFurnace"]
+
+- name: "runnerDiameter"
+  expression: "0.2 * fullHeightFurnace"
+  description: "Диаметр колошника"
+  dependencies: ["fullHeightFurnace"]
+
+- name: "shaftHeight"
+  expression: "0.65 * fullHeightFurnace"
+  description: "Высота шахты"
+  dependencies: ["fullHeightFurnace"]
+
+constants:
+  shoulderAngleWithout: 74.37
+  shaftAngle: 86.23
+  runnerHeight: 2.0

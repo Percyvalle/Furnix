@@ -1,0 +1,12 @@
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/muparser.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/example1.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/example2.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/Experimental.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/Nightly.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/Continuous.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/NightlyMemoryCheck.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/t_ParserTest.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/RUN_TESTS.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/INSTALL.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Danil/Desktop/muparser-2.3.5/.build/CMakeFiles/ZERO_CHECK.dir
