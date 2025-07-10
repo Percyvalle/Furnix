@@ -1,12 +1,15 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.5)
 project(Furnix LANGUAGES CXX)
 
 # Qt setup
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 qt_standard_project_setup()
 
-add_definitions(-D_UNICODE)
-add_definitions(-DMUP_USE_WIDE_STRING)
+add_compile_definitions(
+    _UNICODE
+    UNICODE
+    MUP_USE_WIDE_STRING
+)
 
 # MuParser dependency
 set(ENABLE_SAMPLES OFF)
@@ -14,7 +17,6 @@ set(BUILD_SHARED_LIBS OFF)
 set(ENABLE_WIDE_CHAR OFF)
 set(ENABLE_OPENMP ON)
 add_subdirectory(3dpart/muparser-2.3.5)
-
 
 # yaml-cpp dependency
 include(FetchContent)
@@ -92,22 +94,19 @@ qt_add_executable(Furnix
     src/graphics/furnace_part_item.cpp
     src/graphics/furnace_runner_item.h
     src/graphics/furnace_runner_item.cpp
-    src/graphics/furnace_tapping_item.h src/graphics/furnace_tapping_item.cpp
-    src/graphics/furnace_bloom_item.h src/graphics/furnace_bloom_item.cpp
-    src/graphics/furnace_shoulder_item.h src/graphics/furnace_shoulder_item.cpp
-    src/graphics/furnace_shaft_item.h src/graphics/furnace_shaft_item.cpp
-)
-
-# Compiler options
-target_compile_options(Furnix PRIVATE
-    -O1
-    -Wa,-mbig-obj
-    -include cstdint
+    src/graphics/furnace_tapping_item.h 
+    src/graphics/furnace_tapping_item.cpp
+    src/graphics/furnace_bloom_item.h 
+    src/graphics/furnace_bloom_item.cpp
+    src/graphics/furnace_shoulder_item.h 
+    src/graphics/furnace_shoulder_item.cpp
+    src/graphics/furnace_shaft_item.h 
+    src/graphics/furnace_shaft_item.cpp
 )
 
 target_include_directories(Furnix PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/muparser
+    ${CMAKE_CURRENT_SOURCE_DIR}/3dpart/muparser-2.3.5/include
 )
 
 target_link_libraries(Furnix PRIVATE
@@ -138,3 +137,11 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(Furnix PRIVATE _DEBUG)
+    target_compile_options(Furnix PRIVATE -g -O0 -Wall)
+else()
+    target_compile_definitions(Furnix PRIVATE NDEBUG)
+    target_compile_options(Furnix PRIVATE -O3 -Wall)
+endif()

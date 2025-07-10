@@ -19,6 +19,7 @@
 
 #define PROPERTY_NAME_INPUT_EDIT_STRING "id"
 #define NAME_INPUT_EDIT_STRING "input_edit"
+#define NAME_INPUT_LABEL_STRING "input_label"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -75,24 +76,13 @@ void MainWindow::OnCalculationFurnaceProfile()
 
 void MainWindow::OnCalculationComplete(const FurnaceProfileParameters &parameters)
 {
-    qDebug() << "Furnace parameters:";
-    qDebug() << "Runner height:" << parameters.runnerHeight;
-    qDebug() << "Runner diameter:" << parameters.runnerDiameter;
-    qDebug() << "Tapping height:" << parameters.tappingHeight;
-    qDebug() << "Tapping diameter:" << parameters.tappingDiameter;
-    qDebug() << "Bloom diameter:" << parameters.bloomDiameter;
-    qDebug() << "Bloom height:" << parameters.bloomHeight;
-    qDebug() << "Shoulder height:" << parameters.shoulderHeight;
-    qDebug() << "Shoulder angle:" << parameters.shoulderAngleWithout;
-    qDebug() << "Shaft height:" << parameters.shaftHeight;
-    qDebug() << "Shaft angle:" << parameters.shaftAngle;
-
     FurnaceProfileItem* profileItem = new FurnaceProfileItem(parameters);
 
     QPointF center(ui->furnace_profile_canvas->scene()->sceneRect().width()/2,
                    ui->furnace_profile_canvas->scene()->sceneRect().height()/2);
     profileItem->setPos(center);
 
+    ui->furnace_profile_canvas->scene()->clear();
     ui->furnace_profile_canvas->scene()->addItem(profileItem);
 }
 
@@ -117,7 +107,7 @@ void MainWindow::LoadInputParams(const QList<InputParametersData> &params)
         QHBoxLayout* inputParametersRowLayout = new QHBoxLayout();
 
         QLabel* inputLabel = new QLabel(param.description);
-        inputLabel->setObjectName("input_label");
+        inputLabel->setObjectName(NAME_INPUT_LABEL_STRING);
 
         QLineEdit* inputLineEdit = new QLineEdit(
             QString::number(param.defaultValue));

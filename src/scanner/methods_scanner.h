@@ -1,4 +1,4 @@
-#pragma ocne
+#pragma once
 
 #include <QObject>
 #include <QVector>
