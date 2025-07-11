@@ -18,6 +18,7 @@ public:
     void SetParameters(const FurnaceProfileParameters &parameters);
 
 private:
-    double m_width = 0.0;
-    double m_height = 0.0;
+    double m_angle = 0.0;
+    double m_top_width = 0.0;
+    double m_buttom_width = 0.0;
 };

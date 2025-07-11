@@ -24,4 +24,8 @@ public:
     // QGraphicsItem interface
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+protected:
+    double m_width = 0.0;
+    double m_height = 0.0;
 };

@@ -16,8 +16,4 @@ public:
     // FurnacePartItem interface
 public:
     void SetParameters(const FurnaceProfileParameters &parameters);
-
-private:
-    double m_width = 0.0;
-    double m_height = 0.0;
 };

@@ -6,6 +6,7 @@ input_parameters:
   - name: "furnaceVolume"
     type: "double"
     description: "Объем печи (м³)"
+    default: 5000
     required: true
 
 output_parameters:

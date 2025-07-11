@@ -17,8 +17,6 @@ void FurnaceRunnerItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     FurnacePartItem::paint(painter, option, widget);
 
     // Только boundingRect
-    painter->setPen(QPen(Qt::blue, 2)); // Синяя сплошная линия
-    painter->setBrush(Qt::NoBrush);
     painter->drawRect(boundingRect());
 
     // Опционально: подпись координат
@@ -33,4 +31,6 @@ void FurnaceRunnerItem::SetParameters(const FurnaceProfileParameters &parameters
 {
     m_width = parameters.runnerDiameter * FURNACE_PROFILE_SCALE;
     m_height = parameters.runnerHeight * FURNACE_PROFILE_SCALE;
+
+    update();
 }

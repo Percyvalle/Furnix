@@ -47,7 +47,7 @@ QList<OutputParamMethod> FurnaceParameterCalculator::Calculate(
     }
     catch (mu::ParserError& exception)
     {
-        qDebug() << exception.GetMsg();
+        qDebug() <<  exception.GetMsg();
         return QList<OutputParamMethod>();
     }
 }

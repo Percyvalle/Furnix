@@ -28,7 +28,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(yaml-cpp)
 
 # Executable setup
-qt_add_executable(Furnix
+qt_add_executable(${PROJECT_NAME}
     WIN32
     MACOSX_BUNDLE
 
@@ -106,7 +106,6 @@ qt_add_executable(Furnix
 
 target_include_directories(Furnix PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/3dpart/muparser-2.3.5/include
 )
 
 target_link_libraries(Furnix PRIVATE
@@ -140,7 +139,7 @@ install(SCRIPT ${deploy_script})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Furnix PRIVATE _DEBUG)
-    target_compile_options(Furnix PRIVATE -g -O0 -Wall)
+    target_compile_options(Furnix PRIVATE -O0 -Wall -ggdb3)
 else()
     target_compile_definitions(Furnix PRIVATE NDEBUG)
     target_compile_options(Furnix PRIVATE -O3 -Wall)

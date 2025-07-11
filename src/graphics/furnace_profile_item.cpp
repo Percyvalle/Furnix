@@ -27,6 +27,34 @@ void FurnaceProfileItem::SetParameters(const FurnaceProfileParameters &parameter
     m_components.m_runner.SetParameters(m_parameters);
     m_components.m_tapping.SetParameters(m_parameters);
     m_components.m_shoulder.SetParameters(m_parameters);
+
+    UpdatePositions();
+}
+
+void FurnaceProfileItem::UpdatePositions()
+{
+    const qreal centerX = 0;  // Центр по X
+    qreal currentY = -m_height / 2;  // Начинаем с верха
+
+    // 1. Runner (низ)
+    m_components.m_runner.setPos(centerX, currentY + m_parameters.runnerHeight * FURNACE_PROFILE_SCALE / 2);
+    currentY += m_parameters.runnerHeight * FURNACE_PROFILE_SCALE;
+
+    // 2. Shaft (шахта)
+    m_components.m_shaft.setPos(centerX, currentY + m_parameters.shaftHeight * FURNACE_PROFILE_SCALE / 2);
+    currentY += m_parameters.shaftHeight * FURNACE_PROFILE_SCALE;
+
+    // 3. Tapping (летка) - теперь перед Shoulder и Bloom
+    m_components.m_tapping.setPos(centerX, currentY + m_parameters.tappingHeight * FURNACE_PROFILE_SCALE / 2);
+    currentY += m_parameters.tappingHeight * FURNACE_PROFILE_SCALE;
+
+    // 4. Shoulder (переходник)
+    m_components.m_shoulder.setPos(centerX, currentY + m_parameters.shoulderHeight * FURNACE_PROFILE_SCALE / 2);
+    currentY += m_parameters.shoulderHeight * FURNACE_PROFILE_SCALE;
+
+    // 5. Bloom (рабочая зона)
+    m_components.m_bloom.setPos(centerX, currentY + m_parameters.bloomHeight * FURNACE_PROFILE_SCALE / 2);
+    // currentY += m_parameters.bloomHeight * FURNACE_PROFILE_SCALE; // Не нужно, если это последний элемент
 }
 
 QRectF FurnaceProfileItem::boundingRect() const
@@ -38,16 +66,4 @@ void FurnaceProfileItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-
-    // Только boundingRect
-    painter->setPen(QPen(Qt::blue, 2)); // Синяя сплошная линия
-    painter->setBrush(Qt::NoBrush);
-    painter->drawRect(boundingRect());
-
-    // Опционально: подпись координат
-    painter->setPen(Qt::black);
-    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
-                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
-    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
-                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
 }

@@ -11,7 +11,7 @@
 #include "furnace_shoulder_item.h"
 #include "furnace_tapping_item.h"
 
-#define FURNACE_PROFILE_SCALE 10
+#define FURNACE_PROFILE_SCALE 15
 
 class FurnaceProfileItem : public QGraphicsObject
 {
@@ -21,6 +21,9 @@ public:
                                 QGraphicsItem* parent = nullptr);
 
     void SetParameters(const FurnaceProfileParameters& parameters);
+
+private:
+    void UpdatePositions();
 
 private:
     double m_width;

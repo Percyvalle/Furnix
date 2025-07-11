@@ -1,4 +1,7 @@
 #include "furnace_tapping_item.h"
+#include "graphics/furnace_profile_item.h"
+
+#include <QPainter>
 
 FurnaceTappingItem::FurnaceTappingItem(QGraphicsItem *parent)
     : FurnacePartItem(FurnacePartItem::Tapping, parent)
@@ -12,10 +15,22 @@ QRectF FurnaceTappingItem::boundingRect() const
 void FurnaceTappingItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     FurnacePartItem::paint(painter, option, widget);
+
+    // Только boundingRect
+    painter->drawRect(boundingRect());
+
+    // Опционально: подпись координат
+    painter->setPen(Qt::black);
+    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
+                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
+    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
+                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
 }
 
 void FurnaceTappingItem::SetParameters(const FurnaceProfileParameters &parameters)
 {
-    m_width = parameters.tappingDiameter;
-    m_height = parameters.tappingHeight;
+    m_width = parameters.tappingDiameter * FURNACE_PROFILE_SCALE;
+    m_height = parameters.tappingHeight * FURNACE_PROFILE_SCALE;
+
+    update();
 }

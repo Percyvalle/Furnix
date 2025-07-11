@@ -6,30 +6,31 @@ input_parameters:
   - name: "DpDrRatio"
     type: "double"
     description: "Отношение диаметров (Dp/Dr)"
-    default: 0.45
+    default: 1.095
     required: true
 
   - name: "dkD_ratio"
     type: "double"
     description: "Отношение диаметров (dk/D)"
-    default: 0.6
+    default: 0.67
     required: true
 
   - name: "VshSg_ratio"
     type: "double"
     description: "Отношение объемов (Vsh/Sg)"
-    default: 1.2
+    default: 14.5
     required: true
 
   - name: "furnaceVolume"
     type: "double"
     description: "Объем печи (м³)"
+    default: 5000
     required: true
 
   - name: "utilizationCoefficient"
     type: "double"
     description: "Коэффициент использования"
-    default: 0.45
+    default: 0.38
     required: true
 
 output_parameters:
@@ -97,27 +98,27 @@ formulas:
 
 - name: "bloomCrossSection"
   expression: "(410.0 + 0.8 * 110.0) / 1000.0 * dailyOutput / 34.91"
-  description: "Площадь сечения столба"
+  description: "Сечение горна"
   dependencies: ["dailyOutput"]
 
 - name: "bloomDiameter"
   expression: "sqrt(4.0 * bloomCrossSection / _pi)"
-  description: "Диаметр распара"
+  description: "Диаметр горна"
   dependencies: ["bloomCrossSection"]
 
 - name: "bloomTotalHeight"
-  expression: "(dailyOutput / (6.9 * 24.0 * 60.0) + (dailyOutput * 0.28) / (2.0 * 24.0 * 60.0) ) * ( (24.0 * 60.0 / 20.0) - 60.0 ) / (_pi * bloomDiameter^2 / 4.0 * 0.5) + 2.0"
-  description: "Полная высота распара"
+  expression: "(dailyOutput / (6.9 * 24.0 * 60.0) + (dailyOutput * 0.28) / (2.0 * 24.0 * 60.0)) * ((24.0 * 60.0 / 20.0) - 60.0 ) / (_pi * bloomDiameter^2 / 4.0 * 0.5) + 2.0"
+  description: "Полная высота горна"
   dependencies: ["dailyOutput", "bloomDiameter"]
 
 - name: "tappingHeight"
   expression: "2.0"
-  description: "Высота горна"
+  description: "Высота распара"
   dependencies: []
 
 - name: "tappingDiameter"
   expression: "bloomDiameter * DpDrRatio"
-  description: "Диаметр горна"
+  description: "Диаметр распара"
   dependencies: ["bloomDiameter", "DpDrRatio"]
 
 - name: "shoulderHeight"
@@ -147,7 +148,7 @@ formulas:
 
 - name: "shaftVolume"
   expression: "bloomCrossSection * VshSg_ratio"
-  description: "Объем ствола"
+  description: "Объем шахты"
   dependencies: ["bloomCrossSection", "VshSg_ratio"]
 
 - name: "shaftHeight"

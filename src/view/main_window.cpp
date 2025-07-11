@@ -11,8 +11,11 @@
 
 #include <graphics/furnace_profile_item.h>
 
-#define CANVAS_FURNACE_PROFILE_INDEX 0
-#define CANVAS_LINING_STRUCTURE_INDEX 1
+enum CanvasStates : int
+{
+    CANVAS_FURNACE_PROFILE_INDEX = 0,
+    CANVAS_LINING_STRUCTURE_INDEX = 1
+};
 
 #define CANVAS_WEIGHT_DEFAULT 1300
 #define CANVAS_HEIGHT_DEFAULT 1300
@@ -42,9 +45,9 @@ bool MainWindow::Initialize()
 
     // Must be added in index order!
     canvasButtonGroup->addButton(
-        ui->canvas_furnace_profile, CANVAS_FURNACE_PROFILE_INDEX);
+        ui->canvas_furnace_profile, CanvasStates::CANVAS_FURNACE_PROFILE_INDEX);
     canvasButtonGroup->addButton(
-        ui->canvas_lining_structure, CANVAS_LINING_STRUCTURE_INDEX);
+        ui->canvas_lining_structure, CanvasStates::CANVAS_LINING_STRUCTURE_INDEX);
 
     connect(canvasButtonGroup, &QButtonGroup::idPressed, this, &MainWindow::OnSwitchFeatures);
 
