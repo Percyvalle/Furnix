@@ -16,15 +16,7 @@ void FurnaceBloomItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 {
     FurnacePartItem::paint(painter, option, widget);
 
-    // Только boundingRect
     painter->drawRect(boundingRect());
-
-    // Опционально: подпись координат
-    painter->setPen(Qt::black);
-    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
-                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
-    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
-                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
 }
 
 void FurnaceBloomItem::SetParameters(const FurnaceProfileParameters &parameters)
@@ -33,4 +25,14 @@ void FurnaceBloomItem::SetParameters(const FurnaceProfileParameters &parameters)
     m_height = parameters.bloomHeight * FURNACE_PROFILE_SCALE;
 
     update();
+}
+
+QList<QPair<QString, double>> FurnaceBloomItem::GetAvailableParameters()
+{
+    QList<QPair<QString, double>> result = {
+        {"Диаметр горна", m_width},
+        {"Полная высота горна", m_height}
+    };
+
+    return result;
 }

@@ -9,31 +9,43 @@ FurnaceShaftItem::FurnaceShaftItem(QGraphicsItem *parent)
 
 QRectF FurnaceShaftItem::boundingRect() const
 {
-    return QRectF(-m_width / 2, -m_height / 2, m_width, m_height);
+    return QRectF(-m_width / 2, 0, m_width, m_height);
 }
 
 void FurnaceShaftItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     FurnacePartItem::paint(painter, option, widget);
-
-    painter->drawRect(boundingRect());
-
-    // Опционально: подпись координат
-    painter->setPen(Qt::black);
-    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
-                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
-    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
-                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
+    
+    QPainterPath path;
+    path.moveTo(-m_top_width / 2, 0);
+    path.lineTo(m_top_width / 2, 0);
+    path.lineTo(m_buttom_width / 2, m_height);
+    path.lineTo(-m_buttom_width / 2, m_height);
+    path.closeSubpath();
+    
+    painter->drawPath(path);
 }
 
 void FurnaceShaftItem::SetParameters(const FurnaceProfileParameters &parameters)
 {
+    prepareGeometryChange();
+
     m_angle = parameters.shaftAngle;
     m_top_width = parameters.runnerDiameter * FURNACE_PROFILE_SCALE;
     m_buttom_width = parameters.tappingDiameter * FURNACE_PROFILE_SCALE;
     
-    m_width = parameters.tappingDiameter * FURNACE_PROFILE_SCALE;
+    m_width = qMax(m_top_width, m_buttom_width);
     m_height = parameters.shaftHeight * FURNACE_PROFILE_SCALE;
 
     update();
+}
+
+QList<QPair<QString, double>> FurnaceShaftItem::GetAvailableParameters()
+{
+    QList<QPair<QString, double>> result = {
+        {"Высота шахты", m_height},
+        {"Угол наклона шахты", m_angle}
+    };
+
+    return result;
 }

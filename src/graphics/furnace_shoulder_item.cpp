@@ -10,28 +10,41 @@ FurnaceShoulderItem::FurnaceShoulderItem(QGraphicsItem *parent)
 
 QRectF FurnaceShoulderItem::boundingRect() const
 {
-    return QRectF(-m_width / 2, -m_height / 2, m_width, m_height);
+    return QRectF(-m_width / 2, 0, m_width, m_height);
 }
 
 void FurnaceShoulderItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     FurnacePartItem::paint(painter, option, widget);
 
-    // Только boundingRect
-    painter->drawRect(boundingRect());
+    QPainterPath path;
+    path.moveTo(-m_top_width / 2, 0);
+    path.lineTo(m_top_width / 2, 0);
+    path.lineTo(m_buttom_width / 2, m_height);
+    path.lineTo(-m_buttom_width / 2, m_height);
+    path.closeSubpath();
 
-    // Опционально: подпись координат
-    painter->setPen(Qt::black);
-    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
-                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
-    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
-                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
+    painter->drawPath(path);
 }
 
 void FurnaceShoulderItem::SetParameters(const FurnaceProfileParameters &parameters)
 {
-    m_width = parameters.tappingDiameter * FURNACE_PROFILE_SCALE;
+    m_angle = parameters.shoulderAngleWithout;
+    m_top_width = parameters.tappingDiameter * FURNACE_PROFILE_SCALE;
+    m_buttom_width = parameters.bloomDiameter * FURNACE_PROFILE_SCALE;
+
+    m_width = qMax(m_top_width, m_buttom_width);
     m_height = parameters.shoulderHeight * FURNACE_PROFILE_SCALE;
 
     update();
+}
+
+QList<QPair<QString, double>> FurnaceShoulderItem::GetAvailableParameters()
+{
+    QList<QPair<QString, double>> result = {
+        {"Высота заплечиков", m_height},
+        {"Угол наклона заплечиков", m_angle}
+    };
+
+    return result;
 }

@@ -212,6 +212,12 @@ QLineEdit {
              <property name="sizeType">
               <enum>QSizePolicy::Policy::Expanding</enum>
              </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
             </spacer>
            </item>
           </layout>
@@ -377,10 +383,13 @@ QPushButton:checked {
               <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
              </property>
              <property name="renderHints">
-              <set>QPainter::RenderHint::Antialiasing|QPainter::RenderHint::TextAntialiasing</set>
+              <set>QPainter::RenderHint::Antialiasing|QPainter::RenderHint::SmoothPixmapTransform|QPainter::RenderHint::TextAntialiasing</set>
              </property>
              <property name="dragMode">
               <enum>QGraphicsView::DragMode::NoDrag</enum>
+             </property>
+             <property name="cacheMode">
+              <set>QGraphicsView::CacheModeFlag::CacheBackground</set>
              </property>
              <property name="transformationAnchor">
               <enum>QGraphicsView::ViewportAnchor::AnchorUnderMouse</enum>

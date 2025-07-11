@@ -10,11 +10,12 @@ public:
 
     // QGraphicsItem interface
 public:
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     // FurnacePartItem interface
 public:
-    void SetParameters(const FurnaceProfileParameters &parameters);
+    void SetParameters(const FurnaceProfileParameters &parameters) override;
+    QList<QPair<QString, double>> GetAvailableParameters() override;
 };
 

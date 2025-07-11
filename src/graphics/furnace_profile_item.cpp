@@ -41,7 +41,7 @@ void FurnaceProfileItem::UpdatePositions()
     currentY += m_parameters.runnerHeight * FURNACE_PROFILE_SCALE;
 
     // 2. Shaft (шахта)
-    m_components.m_shaft.setPos(centerX, currentY + m_parameters.shaftHeight * FURNACE_PROFILE_SCALE / 2);
+    m_components.m_shaft.setPos(centerX, currentY);
     currentY += m_parameters.shaftHeight * FURNACE_PROFILE_SCALE;
 
     // 3. Tapping (летка) - теперь перед Shoulder и Bloom
@@ -49,7 +49,7 @@ void FurnaceProfileItem::UpdatePositions()
     currentY += m_parameters.tappingHeight * FURNACE_PROFILE_SCALE;
 
     // 4. Shoulder (переходник)
-    m_components.m_shoulder.setPos(centerX, currentY + m_parameters.shoulderHeight * FURNACE_PROFILE_SCALE / 2);
+    m_components.m_shoulder.setPos(centerX, currentY);
     currentY += m_parameters.shoulderHeight * FURNACE_PROFILE_SCALE;
 
     // 5. Bloom (рабочая зона)

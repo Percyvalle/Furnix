@@ -11,7 +11,7 @@
 #include "furnace_shoulder_item.h"
 #include "furnace_tapping_item.h"
 
-#define FURNACE_PROFILE_SCALE 15
+#define FURNACE_PROFILE_SCALE 20
 
 class FurnaceProfileItem : public QGraphicsObject
 {
@@ -32,8 +32,8 @@ private:
 
     // QGraphicsItem interface
 public:
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
     struct FurnaceProfileComponents

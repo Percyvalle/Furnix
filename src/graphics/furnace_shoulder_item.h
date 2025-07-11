@@ -10,11 +10,17 @@ public:
 
     // QGraphicsItem interface
 public:
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     // FurnacePartItem interface
 public:
-    void SetParameters(const FurnaceProfileParameters &parameters);
+    void SetParameters(const FurnaceProfileParameters &parameters) override;
+    QList<QPair<QString, double>> GetAvailableParameters() override;
+
+private:
+    double m_angle = 0.0;
+    double m_top_width = 0.0;
+    double m_buttom_width = 0.0;
 };
 

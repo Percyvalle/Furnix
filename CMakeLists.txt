@@ -102,6 +102,8 @@ qt_add_executable(${PROJECT_NAME}
     src/graphics/furnace_shoulder_item.cpp
     src/graphics/furnace_shaft_item.h 
     src/graphics/furnace_shaft_item.cpp
+    src/graphics/furnace_part_tooltip.h
+    src/graphics/furnace_part_tooltip.cpp
 )
 
 target_include_directories(Furnix PRIVATE

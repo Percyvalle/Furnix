@@ -29,9 +29,6 @@ void ZoomGraphicsView::mousePressEvent(QMouseEvent *event)
         setCursor(Qt::ClosedHandCursor);
         m_isPanning = true;
         m_panningStartPosition = event->pos();
-
-        event->accept();
-        return;
     }
     QGraphicsView::mousePressEvent(event);
 }
@@ -54,8 +51,6 @@ void ZoomGraphicsView::mouseMoveEvent(QMouseEvent *event)
         verticalScrollBar()->setValue(verticalScrollBar()->value() - delta.y());
 
         m_panningStartPosition = event->pos();
-        event->accept();
-        return;
     }
     QGraphicsView::mouseMoveEvent(event);
 }
@@ -67,9 +62,6 @@ void ZoomGraphicsView::mouseReleaseEvent(QMouseEvent *event)
     {
         m_isPanning = false;
         setCursor(Qt::ArrowCursor);
-
-        event->accept();
-        return;
     }
     QGraphicsView::mouseReleaseEvent(event);
 }

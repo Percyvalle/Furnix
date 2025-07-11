@@ -16,15 +16,7 @@ void FurnaceRunnerItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
 {
     FurnacePartItem::paint(painter, option, widget);
 
-    // Только boundingRect
     painter->drawRect(boundingRect());
-
-    // Опционально: подпись координат
-    painter->setPen(Qt::black);
-    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
-                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
-    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
-                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
 }
 
 void FurnaceRunnerItem::SetParameters(const FurnaceProfileParameters &parameters)
@@ -33,4 +25,14 @@ void FurnaceRunnerItem::SetParameters(const FurnaceProfileParameters &parameters
     m_height = parameters.runnerHeight * FURNACE_PROFILE_SCALE;
 
     update();
+}
+
+QList<QPair<QString, double>> FurnaceRunnerItem::GetAvailableParameters()
+{
+    QList<QPair<QString, double>> result = {
+        {"Высота колошника", m_height},
+        {"Диаметр колошника", m_width}
+    };
+
+    return result;
 }

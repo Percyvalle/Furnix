@@ -16,15 +16,7 @@ void FurnaceTappingItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 {
     FurnacePartItem::paint(painter, option, widget);
 
-    // Только boundingRect
     painter->drawRect(boundingRect());
-
-    // Опционально: подпись координат
-    painter->setPen(Qt::black);
-    painter->drawText(boundingRect().topLeft() + QPointF(5, 15),
-                      QString("(%1, %2)").arg(boundingRect().x()).arg(boundingRect().y()));
-    painter->drawText(boundingRect().bottomRight() - QPointF(50, -15),
-                      QString("(%1, %2)").arg(boundingRect().width()).arg(boundingRect().height()));
 }
 
 void FurnaceTappingItem::SetParameters(const FurnaceProfileParameters &parameters)
@@ -33,4 +25,14 @@ void FurnaceTappingItem::SetParameters(const FurnaceProfileParameters &parameter
     m_height = parameters.tappingHeight * FURNACE_PROFILE_SCALE;
 
     update();
+}
+
+QList<QPair<QString, double>> FurnaceTappingItem::GetAvailableParameters()
+{
+    QList<QPair<QString, double>> result = {
+        {"Высота распара", m_height},
+        {"Диаметр распара", m_width}
+    };
+
+    return result;
 }
