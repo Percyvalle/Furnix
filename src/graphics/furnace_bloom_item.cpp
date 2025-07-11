@@ -30,8 +30,8 @@ void FurnaceBloomItem::SetParameters(const FurnaceProfileParameters &parameters)
 QList<QPair<QString, double>> FurnaceBloomItem::GetAvailableParameters()
 {
     QList<QPair<QString, double>> result = {
-        {"Диаметр горна", m_width},
-        {"Полная высота горна", m_height}
+        {"Диаметр горна", m_width / FURNACE_PROFILE_SCALE},
+        {"Полная высота горна", m_height / FURNACE_PROFILE_SCALE}
     };
 
     return result;

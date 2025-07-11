@@ -42,7 +42,7 @@ void FurnaceShoulderItem::SetParameters(const FurnaceProfileParameters &paramete
 QList<QPair<QString, double>> FurnaceShoulderItem::GetAvailableParameters()
 {
     QList<QPair<QString, double>> result = {
-        {"Высота заплечиков", m_height},
+        {"Высота заплечиков", m_height / FURNACE_PROFILE_SCALE},
         {"Угол наклона заплечиков", m_angle}
     };
 

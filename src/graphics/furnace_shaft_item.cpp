@@ -43,7 +43,7 @@ void FurnaceShaftItem::SetParameters(const FurnaceProfileParameters &parameters)
 QList<QPair<QString, double>> FurnaceShaftItem::GetAvailableParameters()
 {
     QList<QPair<QString, double>> result = {
-        {"Высота шахты", m_height},
+        {"Высота шахты", m_height / FURNACE_PROFILE_SCALE},
         {"Угол наклона шахты", m_angle}
     };
 

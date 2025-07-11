@@ -30,8 +30,8 @@ void FurnaceTappingItem::SetParameters(const FurnaceProfileParameters &parameter
 QList<QPair<QString, double>> FurnaceTappingItem::GetAvailableParameters()
 {
     QList<QPair<QString, double>> result = {
-        {"Высота распара", m_height},
-        {"Диаметр распара", m_width}
+        {"Высота распара", m_height / FURNACE_PROFILE_SCALE},
+        {"Диаметр распара", m_width / FURNACE_PROFILE_SCALE}
     };
 
     return result;

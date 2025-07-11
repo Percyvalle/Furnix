@@ -70,6 +70,7 @@ void FurnacePartItem::ShowTooltip(const QPointF &pos)
     if (!m_tooltip)
     {
         m_tooltip = QSharedPointer<FurnacePartTooltip>::create();
+        m_tooltip->SetAvailableParameters(GetAvailableParameters());
         scene()->addItem(m_tooltip.get());
     }
 

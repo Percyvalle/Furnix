@@ -30,8 +30,8 @@ void FurnaceRunnerItem::SetParameters(const FurnaceProfileParameters &parameters
 QList<QPair<QString, double>> FurnaceRunnerItem::GetAvailableParameters()
 {
     QList<QPair<QString, double>> result = {
-        {"Высота колошника", m_height},
-        {"Диаметр колошника", m_width}
+        {"Высота колошника", m_height / FURNACE_PROFILE_SCALE},
+        {"Диаметр колошника", m_width / FURNACE_PROFILE_SCALE}
     };
 
     return result;
