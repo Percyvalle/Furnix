@@ -3,7 +3,7 @@
 #include <QHash>
 #include <QList>
 
-#include <entity/output_param_method.h>
+#include "core/entity/output_param_method.h"
 
 struct FurnaceProfileParameters
 {

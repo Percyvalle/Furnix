@@ -2,12 +2,13 @@
 
 #include <QObject>
 
-#include <interfaces/i_main_window_view.h>
 
+#include "interfaces/i_main_window_view.h"
+#include "infrastructure/scanner/methods_scanner.h"
+
+#include "core/entity/calculation_method.h"
 #include "core/furnace_parameter_calculator.h"
-#include "scanner/methods_scanner.h"
-#include "entity/calculation_method.h"
-#include <models/furnace_profile_param.h>
+#include "core/models/furnace_profile_param.h"
 
 class MainPresenter : public QObject
 {

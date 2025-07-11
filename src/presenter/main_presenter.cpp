@@ -3,7 +3,7 @@
 #include <QStringList>
 
 #include "infrastructure/loaders/furnace_profile_loader.h"
-#include "models/furnace_profile_param.h"
+#include "core/models/furnace_profile_param.h"
 
 MainPresenter::MainPresenter(IMainWindowView *view, QObject *parent)
     : QObject(parent),

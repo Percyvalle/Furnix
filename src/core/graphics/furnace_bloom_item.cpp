@@ -1,5 +1,5 @@
 #include "furnace_bloom_item.h"
-#include "graphics/furnace_profile_item.h"
+#include "furnace_profile_item.h"
 
 #include <QPainter>
 

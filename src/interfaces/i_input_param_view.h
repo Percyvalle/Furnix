@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-#include "entity/input_param_method.h"
+#include "core/entity/input_param_method.h"
 
 class IInputParamView
 {

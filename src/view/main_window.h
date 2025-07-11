@@ -2,9 +2,9 @@
 
 #include <QMainWindow>
 
-#include <interfaces/i_main_window_view.h>
-#include <entity/output_param_method.h>
-#include <models/furnace_profile_param.h>
+#include "interfaces/i_main_window_view.h"
+#include "core/entity/output_param_method.h"
+#include "core/models/furnace_profile_param.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

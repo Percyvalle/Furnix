@@ -2,8 +2,8 @@
 
 #include <QGraphicsObject>
 
-#include <entity/output_param_method.h>
-#include <models/furnace_profile_param.h>
+#include "core/entity/output_param_method.h"
+#include "core/models/furnace_profile_param.h"
 
 #include "furnace_bloom_item.h"
 #include "furnace_runner_item.h"

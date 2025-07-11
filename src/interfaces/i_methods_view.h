@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-#include <entity/calculation_method.h>
+#include "core/entity/calculation_method.h"
 
 class IMethodsView
 {

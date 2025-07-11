@@ -27,83 +27,37 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(yaml-cpp)
 
+
+file(GLOB_RECURSE SOURCES 
+    "src/*.cpp" 
+    "src/*.cc" 
+    "src/*.c"
+)
+
+file(GLOB_RECURSE HEADERS 
+    "src/*.h" 
+    "src/*.hpp"
+)
+
+file(GLOB_RECURSE FORMS 
+    "src/*.ui"
+)
+
+file(GLOB_RECURSE RESOURCES 
+    "resources/*.qrc"
+)
+
 # Executable setup
 qt_add_executable(${PROJECT_NAME}
     WIN32
     MACOSX_BUNDLE
-
+    ${SOURCES}
+    ${HEADERS}
+    ${FORMS}
+    ${RESOURCES}
     main.cpp
-
-    src/view/main_window.cpp
-    src/view/main_window.h
-    src/view/main_window.ui
-
-    src/core/grid/grid_scene.h
-    src/core/grid/grid_scene.cpp
-
-    src/core/canvas/zoom_graphics_view.h
-    src/core/canvas/zoom_graphics_view.cpp
-
-    src/models/calculation_method_data.h
-    src/models/input_parameters_data.h
-    src/models/output_parameters_data.h
-    src/models/formula_parameters_data.h
-
-    src/core/yaml/yaml_deserializer.h
-
-    src/scanner/methods_scanner.h
-    src/scanner/methods_scanner.cpp
-
-    src/common_constants.h
-
-    src/entity/calculation_method.h
-    src/entity/calculation_method.cpp
-    src/entity/input_param_method.h
-    src/entity/input_param_method.cpp
-    src/entity/output_param_method.h
-    src/entity/output_param_method.cpp
-
-    src/core/application_controller.h
-    src/core/application_controller.cpp
-    src/core/furnace_parameter_calculator.h
-    src/core/furnace_parameter_calculator.cpp
-
-    src/presenter/main_presenter.h
-    src/presenter/main_presenter.cpp
-
-    src/interfaces/i_canvas_view.h
-    src/interfaces/i_methods_view.h
-    src/interfaces/i_main_window_view.h
-    src/interfaces/i_input_param_view.h
-
-    src/graphics/furnace_profile_item.h
-    src/graphics/furnace_profile_item.cpp
-
-    src/entity/furnace_param_method.h
-    src/entity/furnace_param_method.cpp
-
     methods/ledebour_method.yaml
     methods/pavlov_method.yaml
-
-    src/models/furnace_profile_param.h
-
-    src/infrastructure/loaders/furnace_profile_loader.h
-    src/infrastructure/loaders/furnace_profile_loader.cpp
-
-    src/graphics/furnace_part_item.h
-    src/graphics/furnace_part_item.cpp
-    src/graphics/furnace_runner_item.h
-    src/graphics/furnace_runner_item.cpp
-    src/graphics/furnace_tapping_item.h 
-    src/graphics/furnace_tapping_item.cpp
-    src/graphics/furnace_bloom_item.h 
-    src/graphics/furnace_bloom_item.cpp
-    src/graphics/furnace_shoulder_item.h 
-    src/graphics/furnace_shoulder_item.cpp
-    src/graphics/furnace_shaft_item.h 
-    src/graphics/furnace_shaft_item.cpp
-    src/graphics/furnace_part_tooltip.h
-    src/graphics/furnace_part_tooltip.cpp
 )
 
 target_include_directories(Furnix PRIVATE

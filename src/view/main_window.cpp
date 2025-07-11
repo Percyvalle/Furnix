@@ -7,9 +7,9 @@
 #include <QStringList>
 
 #include "core/grid/grid_scene.h"
-#include "scanner/methods_scanner.h"
+#include "core/graphics/furnace_profile_item.h"
 
-#include <graphics/furnace_profile_item.h>
+#include "infrastructure/scanner/methods_scanner.h"
 
 enum CanvasStates : int
 {

@@ -6,7 +6,7 @@
 #include <QGraphicsObject>
 
 #include "furnace_part_tooltip.h"
-#include "models/furnace_profile_param.h"
+#include "core/models/furnace_profile_param.h"
 
 class FurnacePartItem : public QGraphicsObject
 {

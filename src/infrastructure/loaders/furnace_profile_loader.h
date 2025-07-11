@@ -2,8 +2,8 @@
 
 #include <QObject>
 
-#include "models/furnace_profile_param.h"
-#include "entity/output_param_method.h"
+#include "core/models/furnace_profile_param.h"
+#include "core/entity/output_param_method.h"
 
 class FurnaceProfileLoader
 {

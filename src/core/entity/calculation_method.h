@@ -2,7 +2,7 @@
 
 #include <QString>
 
-#include "models/calculation_method_data.h"
+#include "core/models/calculation_method_data.h"
 
 class CalculationMethod
 {
