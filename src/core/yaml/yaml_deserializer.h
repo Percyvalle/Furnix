@@ -130,8 +130,8 @@ struct convert<CalculationMethodData>
         }
 
         rhs.name = node["name"].as<QString>();
-        rhs.description = node["description"].as<QString>();
         rhs.version = node["version"].as<double>();
+        rhs.description = node["description"].as<QString>();
 
         if (node["input_parameters"])
         {
@@ -143,8 +143,15 @@ struct convert<CalculationMethodData>
             rhs.constant_parameters = node["constants"].as<QMap<QString, double>>();
         }
 
-        rhs.output_parameters = node["output_parameters"].as<QList<OutputParametersData>>();
-        rhs.formular_parameters = node["formulas"].as<QList<FormulaParametersData>>();
+        if (node["output_parameters"])
+        {
+            rhs.output_parameters = node["output_parameters"].as<QList<OutputParametersData>>();
+        }
+
+        if (node["formulas"])
+        {
+            rhs.formular_parameters = node["formulas"].as<QList<FormulaParametersData>>();
+        }
 
         return true;
     }
