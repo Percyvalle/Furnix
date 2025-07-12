@@ -9,9 +9,7 @@
       "binaryDir": "${sourceDir}/build/Debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.9.1/mingw_64/lib/cmake",
-        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/mingw1310_64/bin/mingw32-make.exe"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "environment": {
         "CC": "gcc",
@@ -26,9 +24,7 @@
       "binaryDir": "${sourceDir}/build/Release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_PREFIX_PATH": "C:/Qt/6.9.1/mingw_64/lib/cmake",
-        "CMAKE_MAKE_PROGRAM": "C:/Qt/Tools/mingw1310_64/bin/mingw32-make.exe"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "environment": {
         "CC": "gcc",
