@@ -1,0 +1,166 @@
+name: "Pavlov Method Extended Test"
+description: "Расширенная версия метода Павлова для тестирования интерфейса"
+version: 2.0
+
+input_parameters:
+  # Основные параметры
+  - name: "DpDrRatio"
+    type: "double"
+    description: "Отношение диаметров (Dp/Dr)"
+    default: 1.095
+    required: true
+
+  - name: "dkD_ratio"
+    type: "double"
+    description: "Отношение диаметров (dk/D)"
+    default: 0.67
+    required: true
+
+  - name: "VshSg_ratio"
+    type: "double"
+    description: "Отношение объемов (Vsh/Sg)"
+    default: 14.5
+    required: true
+
+  - name: "furnaceVolume"
+    type: "double"
+    description: "Объем печи (м³)"
+    default: 5000
+    required: true
+
+  - name: "utilizationCoefficient"
+    type: "double"
+    description: "Коэффициент использования"
+    default: 0.38
+    required: true
+
+  # Дополнительные параметры для теста
+  - name: "materialDensity"
+    type: "double"
+    description: "Плотность материала (кг/м³)"
+    default: 7850
+    required: false
+
+  - name: "maxTemperature"
+    type: "double"
+    description: "Максимальная температура (°C)"
+    default: 1650
+    required: false
+
+  - name: "coolingRate"
+    type: "double"
+    description: "Скорость охлаждения (°C/ч)"
+    default: 150
+    required: false
+
+  - name: "productionCycle"
+    type: "double"
+    description: "Длительность цикла производства (часы)"
+    default: 24
+    required: false
+
+  - name: "energyConsumption"
+    type: "double"
+    description: "Потребление энергии (кВт·ч/т)"
+    default: 450
+    required: false
+
+  - name: "oxygenFlow"
+    type: "double"
+    description: "Расход кислорода (м³/мин)"
+    default: 120
+    required: false
+
+  - name: "slagBasicty"
+    type: "double"
+    description: "Основность шлака (CaO/SiO₂)"
+    default: 1.2
+    required: false
+
+  - name: "carbonContent"
+    type: "double"
+    description: "Содержание углерода (%)"
+    default: 4.3
+    required: false
+
+  - name: "siliconContent"
+    type: "double"
+    description: "Содержание кремния (%)"
+    default: 0.8
+    required: false
+
+  - name: "sulfurContent"
+    type: "double"
+    description: "Содержание серы (%)"
+    default: 0.03
+    required: false
+
+  - name: "phosphorusContent"
+    type: "double"
+    description: "Содержание фосфора (%)"
+    default: 0.04
+    required: false
+
+  - name: "tuyereNumber"
+    type: "int"
+    description: "Количество фурм"
+    default: 24
+    required: false
+
+  - name: "tuyereDiameter"
+    type: "double"
+    description: "Диаметр фурм (мм)"
+    default: 120
+    required: false
+
+  - name: "blastTemperature"
+    type: "double"
+    description: "Температура дутья (°C)"
+    default: 1200
+    required: false
+
+  - name: "blastPressure"
+    type: "double"
+    description: "Давление дутья (атм)"
+    default: 3.5
+    required: false
+
+formulas:
+  # Существующие формулы
+  - name: "dailyOutput"
+    expression: "furnaceVolume / utilizationCoefficient"
+    description: "Суточная производительность"
+    dependencies: ["furnaceVolume", "utilizationCoefficient"]
+
+  - name: "bloomCrossSection"
+    expression: "(410.0 + 0.8 * 110.0) / 1000.0 * dailyOutput / 34.91"
+    description: "Сечение горна"
+    dependencies: ["dailyOutput"]
+
+  - name: "bloomDiameter"
+    expression: "sqrt(4.0 * bloomCrossSection / _pi)"
+    description: "Диаметр горна"
+    dependencies: ["bloomCrossSection"]
+
+  # Дополнительные формулы для теста
+  - name: "specificEnergyConsumption"
+    expression: "energyConsumption * dailyOutput / 1000"
+    description: "Удельное потребление энергии"
+    dependencies: ["energyConsumption", "dailyOutput"]
+
+  - name: "totalOxygenUsage"
+    expression: "oxygenFlow * 60 * productionCycle"
+    description: "Общий расход кислорода за цикл"
+    dependencies: ["oxygenFlow", "productionCycle"]
+
+  - name: "materialWeight"
+    expression: "furnaceVolume * materialDensity / 1000"
+    description: "Вес материала в печи (тонны)"
+    dependencies: ["furnaceVolume", "materialDensity"]
+
+constants:
+  DEFAULT_HD_RATION_VALUE: 0.27
+  DEFAULT_SHOULDER_HEIGHT: 3.3
+  _pi: 3.141592653589793
+  STANDARD_PRESSURE: 1.01325
+  IDEAL_GAS_CONSTANT: 8.314

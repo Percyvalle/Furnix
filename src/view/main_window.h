@@ -6,6 +6,13 @@
 #include "core/entity/output_param_method.h"
 #include "core/models/furnace_profile_param.h"
 
+#include <QButtonGroup>
+#include <QLabel>
+#include <QLineEdit>
+#include <QStringList>
+#include <QScrollArea>
+#include <QHBoxLayout>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -36,6 +43,12 @@ public:
 private:
     void SettingUpCanvas();
     void LoadInputParams(const QList<InputParametersData> &params);
+
+    QScrollArea *createParametersScrollArea(const QList<InputParametersData> &params);
+    QWidget *createParametersContainer(const QList<InputParametersData> &param);
+    QHBoxLayout *createParameterRow(const InputParametersData &param);
+    QLineEdit *createParameterInput(const InputParametersData &param);
+    QLabel *createParameterLabel(const QString &text);
 
 public slots:
     void OnSwitchFeatures(int index);

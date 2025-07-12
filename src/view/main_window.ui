@@ -26,19 +26,20 @@
 }
 
 QMainWindow {
-	font: 500 11pt &quot;Segoe UI&quot;;
+	font: 500 12pt &quot;Segoe UI&quot;;
 	background-color: rgb(235,224,231);
 }
 
 QLineEdit {
 	border: 2px solid rgb(166,156,177);
 	border-radius: 6px;
+	height: 40px;
 }
 
 QPushButton {
 	border-radius: 6px;
 	background-color: rgb(166,156,177);
-	height: 35px;
+	height: 40px;
 	font: 600 11pt &quot;Segoe UI&quot;;
 	color: black;
 }
@@ -55,24 +56,28 @@ QPushButton:checked {
 QComboBox {
 		border-radius: 6px;
 		border: 2px solid rgb(166,156,177);
-		height: 30px;
-		font: 500 11pt &quot;Segoe UI&quot;;
+		height: 40px;
+		font: 500 12pt &quot;Segoe UI&quot;;
 		color: black;
 		padding-left: 10px;
 }
 
 QLabel {
 	border: 0;
-	font: 500 11pt &quot;Segoe UI&quot;;
+	font: 500 12pt &quot;Segoe UI&quot;;
 	color: black;
 }
 
 QLineEdit {
 	border: 0;
-	font: 500 11pt &quot;Segoe UI&quot;;
+	font: 500 12pt &quot;Segoe UI&quot;;
 	color: black;
  	height: 25px;
 	padding-left: 10px;
+}
+
+QScrollArea {
+	background-color: rgb(235,224,231);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -485,22 +490,6 @@ QPushButton:checked {
              </widget>
              <widget class="QWidget" name="page_8"/>
             </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Policy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
            <item>
             <widget class="QPushButton" name="calcualtion_furnace_profile">

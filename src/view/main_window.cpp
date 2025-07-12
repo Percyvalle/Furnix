@@ -1,11 +1,6 @@
 #include "main_window.h"
 #include "ui_main_window.h"
 
-#include <QButtonGroup>
-#include <QLabel>
-#include <QLineEdit>
-#include <QStringList>
-
 #include "core/grid/grid_scene.h"
 #include "core/graphics/furnace_profile_item.h"
 
@@ -20,9 +15,9 @@ enum CanvasStates : int
 #define CANVAS_WEIGHT_DEFAULT 1300
 #define CANVAS_HEIGHT_DEFAULT 1300
 
-#define PROPERTY_NAME_INPUT_EDIT_STRING "id"
-#define NAME_INPUT_EDIT_STRING "input_edit"
-#define NAME_INPUT_LABEL_STRING "input_label"
+#define PROPERTY_NAME_INPUT_EDIT_STRING "parameterName"
+#define NAME_INPUT_EDIT_STRING "inputParameterEdit"
+#define NAME_INPUT_LABEL_STRING "inputParameterLabel"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -100,33 +95,83 @@ void MainWindow::SettingUpCanvas()
     ui->furnace_profile_canvas->setScene(canvasGridScene);
 }
 
-void MainWindow::LoadInputParams(const QList<InputParametersData> &params)
+void MainWindow::LoadInputParams(const QList<InputParametersData>& params)
 {
-    QWidget* inputParametersPage = new QWidget();
-    QVBoxLayout* inputParametersPageLayout = new QVBoxLayout(inputParametersPage);
-
-    for (const InputParametersData& param : params)
-    {
-        QHBoxLayout* inputParametersRowLayout = new QHBoxLayout();
-
-        QLabel* inputLabel = new QLabel(param.description);
-        inputLabel->setObjectName(NAME_INPUT_LABEL_STRING);
-
-        QLineEdit* inputLineEdit = new QLineEdit(
-            QString::number(param.defaultValue));
-        inputLineEdit->setObjectName(NAME_INPUT_EDIT_STRING);
-        inputLineEdit->setProperty(PROPERTY_NAME_INPUT_EDIT_STRING, param.name);
-        inputLineEdit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-
-        inputParametersRowLayout->addWidget(inputLabel);
-        inputParametersRowLayout->addWidget(inputLineEdit);
-
-        inputParametersPageLayout->addLayout(inputParametersRowLayout);
+    if (params.isEmpty()) {
+        qWarning() << "Input parameters list is empty";
+        return;
     }
-    inputParametersPageLayout->addStretch();
 
+    QScrollArea* scrollArea = createParametersScrollArea(params);
     ui->furnace_profile_input_parameters->insertWidget(
-        ui->change_methods_combo_box->count() - 1, inputParametersPage);
+        ui->change_methods_combo_box->count() - 1, scrollArea);
+}
+
+QScrollArea* MainWindow::createParametersScrollArea(const QList<InputParametersData>& params)
+{
+    QWidget* container = createParametersContainer(params);
+    
+    QScrollArea* scrollArea = new QScrollArea();
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setWidget(container);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scrollArea->setFrameShape(QFrame::NoFrame);
+    
+    return scrollArea;
+}
+
+QWidget* MainWindow::createParametersContainer(const QList<InputParametersData>& params)
+{
+    QWidget* container = new QWidget();
+    QVBoxLayout* layout = new QVBoxLayout(container);
+    layout->setContentsMargins(0, 0, 0, 0);
+    
+    for (const InputParametersData& param : params) {
+        layout->addLayout(createParameterRow(param));
+    }
+    
+    layout->addStretch();
+    
+    return container;
+}
+
+QHBoxLayout* MainWindow::createParameterRow(const InputParametersData& param)
+{
+    QHBoxLayout* rowLayout = new QHBoxLayout();
+    rowLayout->setContentsMargins(0, 0, 0, 0);
+
+    QLabel* label = createParameterLabel(param.description);
+    QLineEdit* input = createParameterInput(param);
+    
+    rowLayout->addWidget(label, 1);
+    rowLayout->addWidget(input, 3);
+    
+    return rowLayout;
+}
+
+QLabel* MainWindow::createParameterLabel(const QString& text)
+{
+    QLabel* label = new QLabel(text);
+    label->setObjectName(NAME_INPUT_LABEL_STRING);
+    label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    label->setWordWrap(false);
+    label->setToolTip(text);
+    label->setMaximumWidth(200);
+    
+    return label;
+}
+
+QLineEdit* MainWindow::createParameterInput(const InputParametersData& param)
+{
+    QLineEdit* input = new QLineEdit(QString::number(param.defaultValue));
+    input->setObjectName(NAME_INPUT_EDIT_STRING);
+    input->setProperty(PROPERTY_NAME_INPUT_EDIT_STRING, param.name);
+    input->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+    input->setMaximumWidth(250);
+    input->setMinimumWidth(150);
+    
+    return input;
 }
 
 
