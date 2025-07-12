@@ -4,7 +4,7 @@
 #include <QPainter>
 
 FurnaceBloomItem::FurnaceBloomItem(QGraphicsItem *parent)
-    : FurnacePartItem(FurnacePartItem::Bloom, parent)
+    : BaseFurnacePartItem(BaseFurnacePartItem::Bloom, parent)
 {}
 
 QRectF FurnaceBloomItem::boundingRect() const
@@ -14,7 +14,7 @@ QRectF FurnaceBloomItem::boundingRect() const
 
 void FurnaceBloomItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    FurnacePartItem::paint(painter, option, widget);
+    BaseFurnacePartItem::paint(painter, option, widget);
 
     painter->drawRect(boundingRect());
 }

@@ -8,7 +8,7 @@
 #include "furnace_part_tooltip.h"
 #include "core/models/furnace_profile_param.h"
 
-class FurnacePartItem : public QGraphicsObject
+class BaseFurnacePartItem : public QGraphicsObject
 {
     Q_OBJECT
 public:
@@ -21,7 +21,7 @@ public:
         Shaft
     } m_type;
 
-    explicit FurnacePartItem(PartType type, QGraphicsItem* parent = nullptr);
+    explicit BaseFurnacePartItem(PartType type, QGraphicsItem* parent = nullptr);
 
     virtual void SetParameters(const FurnaceProfileParameters& parameters) = 0;
     virtual QList<QPair<QString, double>> GetAvailableParameters() = 0;

@@ -1,4 +1,4 @@
-#include "furnace_part_item.h"
+#include "base_furnace_part_item.h"
 
 #include <QLabel>
 #include <QPainter>
@@ -7,14 +7,14 @@
 #include <QGraphicsProxyWidget>
 #include <QGraphicsSceneMouseEvent>
 
-FurnacePartItem::FurnacePartItem(PartType type, QGraphicsItem *parent)
+BaseFurnacePartItem::BaseFurnacePartItem(PartType type, QGraphicsItem *parent)
     : QGraphicsObject(parent),
       m_type(type)
 {
     setAcceptHoverEvents(true);
 }
 
-void FurnacePartItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void BaseFurnacePartItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -27,7 +27,7 @@ void FurnacePartItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->setPen(QPen(Qt::black, 3));
 }
 
-void FurnacePartItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+void BaseFurnacePartItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
     UpdateTooltipPosition(event->scenePos());
 
@@ -35,7 +35,7 @@ void FurnacePartItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     QGraphicsItem::hoverMoveEvent(event);
 }
 
-void FurnacePartItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+void BaseFurnacePartItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     ShowTooltip(event->scenePos());
 
@@ -43,7 +43,7 @@ void FurnacePartItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     QGraphicsItem::hoverEnterEvent(event);
 }
 
-void FurnacePartItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+void BaseFurnacePartItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     HideTooltip();
 
@@ -51,13 +51,13 @@ void FurnacePartItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
-void FurnacePartItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void BaseFurnacePartItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     update();
     QGraphicsItem::mousePressEvent(event);
 }
 
-void FurnacePartItem::HideTooltip()
+void BaseFurnacePartItem::HideTooltip()
 {
     if (m_tooltip)
     {
@@ -65,7 +65,7 @@ void FurnacePartItem::HideTooltip()
     }
 }
 
-void FurnacePartItem::ShowTooltip(const QPointF &pos)
+void BaseFurnacePartItem::ShowTooltip(const QPointF &pos)
 {
     if (!m_tooltip)
     {
@@ -78,7 +78,7 @@ void FurnacePartItem::ShowTooltip(const QPointF &pos)
     m_tooltip->show();
 }
 
-void FurnacePartItem::UpdateTooltipPosition(const QPointF &pos)
+void BaseFurnacePartItem::UpdateTooltipPosition(const QPointF &pos)
 {
     if (!m_tooltip)
     {

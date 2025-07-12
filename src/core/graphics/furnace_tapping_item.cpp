@@ -4,7 +4,7 @@
 #include <QPainter>
 
 FurnaceTappingItem::FurnaceTappingItem(QGraphicsItem *parent)
-    : FurnacePartItem(FurnacePartItem::Tapping, parent)
+    : BaseFurnacePartItem(BaseFurnacePartItem::Tapping, parent)
 {}
 
 QRectF FurnaceTappingItem::boundingRect() const
@@ -14,7 +14,7 @@ QRectF FurnaceTappingItem::boundingRect() const
 
 void FurnaceTappingItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    FurnacePartItem::paint(painter, option, widget);
+    BaseFurnacePartItem::paint(painter, option, widget);
 
     painter->drawRect(boundingRect());
 }

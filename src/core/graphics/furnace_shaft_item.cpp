@@ -4,7 +4,7 @@
 #include <QPainter>
 
 FurnaceShaftItem::FurnaceShaftItem(QGraphicsItem *parent)
-    : FurnacePartItem(FurnacePartItem::Shaft, parent)
+    : BaseFurnacePartItem(BaseFurnacePartItem::Shaft, parent)
 {}
 
 QRectF FurnaceShaftItem::boundingRect() const
@@ -14,7 +14,7 @@ QRectF FurnaceShaftItem::boundingRect() const
 
 void FurnaceShaftItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    FurnacePartItem::paint(painter, option, widget);
+    BaseFurnacePartItem::paint(painter, option, widget);
     
     QPainterPath path;
     path.moveTo(-m_top_width / 2, 0);

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "furnace_part_item.h"
+#include "base_furnace_part_item.h"
 
-class FurnaceRunnerItem : public FurnacePartItem
+class FurnaceRunnerItem : public BaseFurnacePartItem
 {
     Q_OBJECT
 public:
