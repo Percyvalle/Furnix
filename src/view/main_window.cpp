@@ -117,6 +117,7 @@ QScrollArea* MainWindow::createParametersScrollArea(const QList<InputParametersD
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scrollArea->setFrameShape(QFrame::NoFrame);
+    scrollArea->setStyleSheet("border: 0;");
     
     return scrollArea;
 }
@@ -125,7 +126,7 @@ QWidget* MainWindow::createParametersContainer(const QList<InputParametersData>&
 {
     QWidget* container = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(container);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(10, 10, 10, 10);
     
     for (const InputParametersData& param : params) {
         layout->addLayout(createParameterRow(param));

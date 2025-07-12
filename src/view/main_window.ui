@@ -438,6 +438,11 @@ QPushButton:checked {
     </item>
     <item>
      <widget class="QFrame" name="data_frame">
+      <property name="styleSheet">
+       <string notr="true">QFrame#data_frame {
+	border: 0;
+}</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::Shape::StyledPanel</enum>
       </property>
@@ -463,10 +468,27 @@ QPushButton:checked {
        <item>
         <widget class="QStackedWidget" name="data_stack">
          <property name="styleSheet">
-          <string notr="true">border: 0;</string>
+          <string notr="true">QStackedWidget#data_stack {
+	border: 0;
+}</string>
          </property>
          <widget class="QWidget" name="page_3">
           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QStackedWidget" name="furnace_profile_input_parameters">
              <widget class="QWidget" name="page_7">
@@ -489,6 +511,12 @@ QPushButton:checked {
               </layout>
              </widget>
              <widget class="QWidget" name="page_8"/>
+            </widget>
+           </item>
+           <item>
+            <widget class="QStackedWidget" name="stackedWidget">
+             <widget class="QWidget" name="page_9"/>
+             <widget class="QWidget" name="page_10"/>
             </widget>
            </item>
            <item>
