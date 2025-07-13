@@ -33,6 +33,63 @@ input_parameters:
     default: 0.38
     required: true
 
+output_parameters:
+  - name: "dailyOutput"
+    type: "double"
+    description: "Суточная производительность (т/сут)"
+
+  - name: "bloomCrossSection"
+    type: "double"
+    description: "Сечение горна (м²)"
+
+  - name: "bloomDiameter"
+    type: "double"
+    description: "Диаметр горна (м)"
+
+  - name: "bloomTotalHeight"
+    type: "double"
+    description: "Полная высота горна (м)"
+
+  - name: "tappingHeight"
+    type: "double"
+    description: "Высота распара (м)"
+
+  - name: "tappingDiameter"
+    type: "double"
+    description: "Диаметр распара (м)"
+
+  - name: "shoulderHeight"
+    type: "double"
+    description: "Высота заплечиков (м)"
+
+  - name: "shoulderAngleWith"
+    type: "double"
+    description: "Угол заплечиков с учетом (градусы)"
+
+  - name: "shoulderAngleWithout"
+    type: "double"
+    description: "Угол заплечиков без учета (градусы)"
+
+  - name: "runnerHeight"
+    type: "double"
+    description: "Высота колошника (м)"
+
+  - name: "runnerDiameter"
+    type: "double"
+    description: "Диаметр колошника (м)"
+
+  - name: "shaftVolume"
+    type: "double"
+    description: "Объем шахты (м³)"
+
+  - name: "shaftHeight"
+    type: "double"
+    description: "Высота шахты (м)"
+
+  - name: "shaftAngle"
+    type: "double"
+    description: "Угол наклона шахты (градусы)"
+
 formulas:
 - name: "dailyOutput"
   expression: "furnaceVolume / utilizationCoefficient"

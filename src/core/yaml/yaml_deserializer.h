@@ -96,7 +96,7 @@ struct convert<OutputParametersData>
 
         rhs.name = node["name"].as<QString>();
         rhs.type = node["type"].as<QString>();
-        rhs.descriptions = node["description"].as<QString>();
+        rhs.description = node["description"].as<QString>();
 
         return true;
     }

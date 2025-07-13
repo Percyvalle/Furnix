@@ -6,5 +6,5 @@ struct OutputParametersData
 {
     QString name;
     QString type;
-    QString descriptions;
+    QString description;
 };

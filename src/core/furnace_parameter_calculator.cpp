@@ -2,7 +2,9 @@
 
 #include <muParser.h>
 
+#include <QSet>
 #include <QDebug>
+#include <QString>
 
 FurnaceParameterCalculator::FurnaceParameterCalculator() {}
 
@@ -14,6 +16,12 @@ QList<OutputParamMethod> FurnaceParameterCalculator::Calculate(
 
     try
     {
+        QSet<QString> visibleParamSet;
+        for (const OutputParametersData& param : method.getOutputParameters())
+        {
+            visibleParamSet.insert(param.name);
+        }
+
         QMap<std::wstring, double> localParamStorage;
         for (const InputParamMethod& param : input)
         {
@@ -28,7 +36,7 @@ QList<OutputParamMethod> FurnaceParameterCalculator::Calculate(
         for (const QString& param : constantParams.keys()) {
             parser.DefineVar(param.toStdWString(), &constantParams[param]);
 
-            outputList.emplace_back(param, constantParams[param]);
+            outputList.emplace_back(param, constantParams[param], visibleParamSet.contains(param));
         }
 
         for (const FormulaParametersData& formula : method.getFormularParameters())
@@ -40,7 +48,7 @@ QList<OutputParamMethod> FurnaceParameterCalculator::Calculate(
 
             parser.DefineVar(name, &localParamStorage[name]);
 
-            outputList.emplace_back(formula.name, localParamStorage[name]);
+            outputList.emplace_back(formula.name, localParamStorage[name], visibleParamSet.contains(formula.name));
         }
 
         return outputList;

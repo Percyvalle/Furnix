@@ -3,7 +3,6 @@
 #include <QMainWindow>
 
 #include "interfaces/i_main_window_view.h"
-#include "core/entity/output_param_method.h"
 #include "core/models/furnace_profile_param.h"
 
 #include <QButtonGroup>
@@ -43,18 +42,24 @@ public:
 private:
     void SettingUpCanvas();
     void LoadInputParams(const QList<InputParametersData> &params);
+    void LoadOutputParams(const QList<OutputParametersData> &params);
+    void UpdateOutputParams(const QList<OutputParamMethod> &params);
 
-    QScrollArea *createParametersScrollArea(const QList<InputParametersData> &params);
-    QWidget *createParametersContainer(const QList<InputParametersData> &param);
-    QHBoxLayout *createParameterRow(const InputParametersData &param);
-    QLineEdit *createParameterInput(const InputParametersData &param);
+    template<typename T>
+    QHBoxLayout *createParameterRow(const T& param);
+    template<typename T>
+    QScrollArea *createParametersScrollArea(const QList<T> &params);
+    template<typename T>
+    QWidget *createParametersContainer(const QList<T> &param);
     QLabel *createParameterLabel(const QString &text);
+    QLineEdit *createParameterInput(const InputParametersData &param);
 
 public slots:
     void OnSwitchFeatures(int index);
     void OnSwitchInputParameters(int index);
+    void OnSwitchOutputParameters(int index);
     void OnCalculationFurnaceProfile();
-    void OnCalculationComplete(const FurnaceProfileParameters& parameters);
+    void OnCalculationComplete(const QList<OutputParamMethod>& parameters);
 
 signals:
     void InitializeComplete();

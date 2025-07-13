@@ -21,7 +21,7 @@ public slots:
     void OnInitializeComplete();
 
 signals:
-    void CalculationCompleteTriggered(const FurnaceProfileParameters& output);
+    void CalculationCompleteTriggered(const QList<OutputParamMethod>& output);
 
 private:
     IMainWindowView* m_view;

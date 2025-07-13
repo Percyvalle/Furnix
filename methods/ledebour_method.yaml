@@ -8,7 +8,36 @@ input_parameters:
     description: "Объем печи (м³)"
     default: 5000
     required: true
-    
+  
+output_parameters:
+  - name: "bloomDiameter"
+    type: "double"
+    description: "Диаметр горна (м)"
+
+  - name: "bloomTotalHeight"
+    type: "double"
+    description: "Полная высота горна (м)"
+
+  - name: "tappingHeight"
+    type: "double"
+    description: "Высота распара (м)"
+
+  - name: "tappingDiameter"
+    type: "double"
+    description: "Диаметр распара (м)"
+
+  - name: "shoulderHeight"
+    type: "double"
+    description: "Высота заплечиков (м)"
+
+  - name: "runnerDiameter"
+    type: "double"
+    description: "Диаметр колошника (м)"
+
+  - name: "shaftHeight"
+    type: "double"
+    description: "Высота шахты (м)"
+
 formulas:
 - name: "fullHeightFurnace"
   expression: "2.85 * furnaceVolume^(1.0/3.0)"

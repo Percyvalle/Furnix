@@ -11,7 +11,7 @@ MainPresenter::MainPresenter(IMainWindowView *view, QObject *parent)
 {
     connect(view->asObject(), SIGNAL(InitializeComplete()), this, SLOT(OnInitializeComplete()));
     connect(view->asObject(), SIGNAL(CalculationTriggered(int)), this, SLOT(OnCalculationMethod(int)));
-    connect(this, SIGNAL(CalculationCompleteTriggered(const FurnaceProfileParameters&)), view->asObject(), SLOT(OnCalculationComplete(const FurnaceProfileParameters&)));
+    connect(this, SIGNAL(CalculationCompleteTriggered(const QList<OutputParamMethod>&)), view->asObject(), SLOT(OnCalculationComplete(const QList<OutputParamMethod>&)));
 }
 
 void MainPresenter::OnCalculationMethod(int index)
@@ -28,7 +28,7 @@ void MainPresenter::OnCalculationMethod(int index)
     QList<OutputParamMethod> outputParameters =
         FurnaceParameterCalculator::Calculate(selectedMethod, inputParameters);
 
-    emit CalculationCompleteTriggered(FurnaceProfileLoader::Load(outputParameters));
+    emit CalculationCompleteTriggered(outputParameters);
 }
 
 void MainPresenter::OnInitializeComplete()
