@@ -7,6 +7,11 @@ OutputParametersWidget::OutputParametersWidget(QWidget *parent)
 
 void OutputParametersWidget::LoadParameters(const QList<OutputParametersData>& params)
 {
+    if (params.isEmpty())
+    {
+        return;
+    }
+
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->setContentsMargins(10, 10, 10, 10);
 
@@ -19,7 +24,7 @@ void OutputParametersWidget::LoadParameters(const QList<OutputParametersData>& p
         labelSecond->setAlignment(Qt::AlignCenter);
         labelSecond->setProperty(PROPERTY_NAME_STRING, param.name);
         
-        rowLayout->addWidget(labelFirst, 8);
+        rowLayout->addWidget(labelFirst, 3);
         rowLayout->addWidget(labelSecond, 1);
 
         layout->addLayout(rowLayout);

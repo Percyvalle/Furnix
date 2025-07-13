@@ -12,7 +12,6 @@
 #include "core/entity/output_param_method.h"
 
 #define PROPERTY_NAME_STRING "parameterName"
-#define NAME_OUTPUT_LABEL_STRING "outputParameterLabel"
 
 class OutputParametersWidget : public QWidget
 {

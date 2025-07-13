@@ -7,6 +7,11 @@ InputParametersWidget::InputParametersWidget(QWidget *parent)
 
 void InputParametersWidget::LoadParameters(const QList<InputParametersData> &params)
 {
+    if (params.isEmpty())
+    {
+        return;
+    }
+
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->setContentsMargins(10, 10, 10, 10);
 
