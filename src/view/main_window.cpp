@@ -3,6 +3,11 @@
 
 #include <QMap>
 
+#include "input_parameters_widget.h"
+#include "output_parameters_widget.h"
+
+#include "factories/component_factory.h"
+
 #include "core/grid/grid_scene.h"
 #include "core/graphics/furnace_profile_item.h"
 
@@ -17,10 +22,6 @@ enum CanvasStates : int
 
 #define CANVAS_WEIGHT_DEFAULT 1300
 #define CANVAS_HEIGHT_DEFAULT 1300
-
-#define PROPERTY_NAME_STRING "parameterName"
-#define NAME_INPUT_EDIT_STRING "inputParameterEdit"
-#define NAME_OUTPUT_LABEL_STRING "outputParameterLabel"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -113,9 +114,11 @@ void MainWindow::LoadInputParams(const QList<InputParametersData>& params)
         return;
     }
 
-    QScrollArea* scrollArea = createParametersScrollArea(params);
+    InputParametersWidget* container = new InputParametersWidget();
+    container->LoadParameters(params);
+    
     ui->furnace_profile_input_parameters->insertWidget(
-        ui->change_methods_combo_box->count() - 1, scrollArea);
+        ui->change_methods_combo_box->count() - 1, ComponentFactory::CreateScrollArea(container));
 }
 
 void MainWindow::LoadOutputParams(const QList<OutputParametersData>& params)
@@ -126,133 +129,65 @@ void MainWindow::LoadOutputParams(const QList<OutputParametersData>& params)
         return;
     }
 
-    QScrollArea* scrollArea = createParametersScrollArea(params);
+    OutputParametersWidget* container = new OutputParametersWidget();
+    container->LoadParameters(params);
+
     ui->furnace_profile_output_parameters->insertWidget(
-        ui->change_methods_combo_box->count() - 1, scrollArea);
+        ui->change_methods_combo_box->count() - 1, ComponentFactory::CreateScrollArea(container));
 }
 
 void MainWindow::UpdateOutputParams(const QList<OutputParamMethod> &params)
 {
-    QList<QLabel*> outputLabelParams =
-        ui->furnace_profile_output_parameters->widget(CurrentMethodIndex())->findChildren<QLabel*>(NAME_OUTPUT_LABEL_STRING);
+    int currentIndexMethod = CurrentMethodIndex();
 
-    QMap<QString, OutputParamMethod> paramsMap;
-    for (const OutputParamMethod& param : params)
-    {
-        paramsMap[param.getName()] = param;
+    QScrollArea* scrollArea = qobject_cast<QScrollArea*>(
+        ui->furnace_profile_output_parameters->widget(currentIndexMethod));
+
+    if (!scrollArea) {
+        qCritical() << "No scroll area at index" << currentIndexMethod;
+        return;
     }
 
-    for (QLabel* label : outputLabelParams)
-    {
-        QString name = label->property(PROPERTY_NAME_STRING).toString();
-        if (paramsMap.contains(name))
-        {
-            label->setText(QString::number(paramsMap[name].getValue()));
-        }
+    QWidget* scrollWidget = scrollArea->widget();
+    if (!scrollWidget) {
+        qCritical() << "Scroll area at index" << currentIndexMethod << "has no widget";
+        return;
     }
-}
-
-template<typename T>
-QScrollArea* MainWindow::createParametersScrollArea(const QList<T>& params)
-{
-    QWidget* container = createParametersContainer(params);
-    
-    QScrollArea* scrollArea = new QScrollArea();
-    scrollArea->setWidgetResizable(true);
-    scrollArea->setWidget(container);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    scrollArea->setFrameShape(QFrame::NoFrame);
-    scrollArea->setStyleSheet("border: 0;");
-    
-    return scrollArea;
-}
-
-template<typename T>
-QWidget* MainWindow::createParametersContainer(const QList<T>& params)
-{
-    QWidget* container = new QWidget();
-    QVBoxLayout* layout = new QVBoxLayout(container);
-    layout->setContentsMargins(10, 10, 10, 10);
-    
-    for (const T& param : params) {
-        layout->addLayout(createParameterRow(param));
+        
+    OutputParametersWidget* outputWidget = qobject_cast<OutputParametersWidget*>(scrollWidget);
+    if (!outputWidget) {
+        qCritical() << "Widget in scroll area at index" << currentIndexMethod 
+                    << "is not an OutputParametersWidget";
+        return;
     }
-    
-    layout->addStretch();
-    
-    return container;
+
+    outputWidget->UpdateValues(params);
 }
-
-template<>
-QHBoxLayout* MainWindow::createParameterRow<InputParametersData>(const InputParametersData& param)
-{
-    QHBoxLayout* rowLayout = new QHBoxLayout();
-    rowLayout->setContentsMargins(0, 0, 0, 0);
-
-    QLabel* label = createParameterLabel(param.description);
-    QLineEdit* input = createParameterInput(param);
-    input->setObjectName(NAME_INPUT_EDIT_STRING);
-    input->setProperty(PROPERTY_NAME_STRING, param.name);
-    
-    rowLayout->addWidget(label, 1);
-    rowLayout->addWidget(input, 3);
-    
-    return rowLayout;
-}
-
-template<>
-QHBoxLayout* MainWindow::createParameterRow<OutputParametersData>(const OutputParametersData& param)
-{
-    QHBoxLayout* rowLayout = new QHBoxLayout();
-    rowLayout->setContentsMargins(0, 0, 0, 0);
-
-    QLabel* labelFirst = createParameterLabel(param.description);
-    QLabel* labelSecond = createParameterLabel("-");
-    labelSecond->setAlignment(Qt::AlignCenter);
-    labelSecond->setObjectName(NAME_OUTPUT_LABEL_STRING);
-    labelSecond->setProperty(PROPERTY_NAME_STRING, param.name);
-    
-    rowLayout->addWidget(labelFirst, 8);
-    rowLayout->addWidget(labelSecond, 1);
-    
-    return rowLayout;
-}
-
-QLabel* MainWindow::createParameterLabel(const QString& text)
-{
-    QLabel* label = new QLabel(text);
-    label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-    label->setWordWrap(false);
-    label->setToolTip(text);
-    label->setMaximumWidth(200);
-    
-    return label;
-}
-
-QLineEdit* MainWindow::createParameterInput(const InputParametersData& param)
-{
-    QLineEdit* input = new QLineEdit(QString::number(param.defaultValue));
-    input->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-    input->setMaximumWidth(250);
-    input->setMinimumWidth(150);
-    
-    return input;
-}
-
 
 QList<InputParamMethod> MainWindow::UploadInputParam(int index)
 {
-    QList<QLineEdit*> inputEditParams =
-        ui->furnace_profile_input_parameters->widget(index)->findChildren<QLineEdit*>(NAME_INPUT_EDIT_STRING);
+    QScrollArea* scrollArea = qobject_cast<QScrollArea*>(
+        ui->furnace_profile_input_parameters->widget(index));
 
-    QList<InputParamMethod> result;
-    for (QLineEdit* edit : inputEditParams)
-    {
-        result.emplace_back(edit->property(PROPERTY_NAME_STRING).toString(), edit->text().toDouble());
+    if (!scrollArea) {
+        qCritical() << "No scroll area at index" << index;
+        return {};
     }
 
-    return result;
+    QWidget* scrollWidget = scrollArea->widget();
+    if (!scrollWidget) {
+        qCritical() << "Scroll area at index" << index << "has no widget";
+        return {};
+    }
+        
+    InputParametersWidget* inputWidget = qobject_cast<InputParametersWidget*>(scrollWidget);
+    if (!inputWidget) {
+        qCritical() << "Widget in scroll area at index" << index 
+                    << "is not an InputParametersWidget";
+        return {};
+    }
+
+    return inputWidget->GetValues();
 }
 
 int MainWindow::AddMethod(const CalculationMethod &method)
@@ -287,4 +222,3 @@ QObject *MainWindow::asObject()
 {
     return this;
 }
-
