@@ -20,8 +20,7 @@ enum CanvasStates : int
 
 #define PROPERTY_NAME_STRING "parameterName"
 #define NAME_INPUT_EDIT_STRING "inputParameterEdit"
-#define NAME_INPUT_LABEL_STRING "inputParameterLabel"
-#define NAME_OUTPUT_LABEL_STRING "oututParameterLabel"
+#define NAME_OUTPUT_LABEL_STRING "outputParameterLabel"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -192,8 +191,6 @@ QHBoxLayout* MainWindow::createParameterRow<InputParametersData>(const InputPara
     rowLayout->setContentsMargins(0, 0, 0, 0);
 
     QLabel* label = createParameterLabel(param.description);
-    label->setObjectName(NAME_INPUT_LABEL_STRING);
-    
     QLineEdit* input = createParameterInput(param);
     input->setObjectName(NAME_INPUT_EDIT_STRING);
     input->setProperty(PROPERTY_NAME_STRING, param.name);
