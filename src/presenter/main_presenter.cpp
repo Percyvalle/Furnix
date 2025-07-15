@@ -16,8 +16,7 @@ MainPresenter::MainPresenter(IMainWindowView *view, QObject *parent)
 
 void MainPresenter::OnCalculationMethod(int index)
 {
-    auto method = m_loadedMethods.find(index);
-    if (method == m_loadedMethods.end())
+    if (!m_loadedMethods.contains(index))
     {
         return;
     }

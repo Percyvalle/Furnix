@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
         return application.exec();
     }
-    catch (std::exception exception)
+    catch (const std::exception& exception)
     {
         qCritical() << exception.what();
         return EXIT_FAILURE;
