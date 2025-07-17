@@ -21,7 +21,7 @@ void MainPresenter::OnCalculationMethod(int index)
         return;
     }
 
-    CalculationMethod selectedMethod = method.value();
+    CalculationMethod selectedMethod = m_loadedMethods[index];
     QList<InputParamMethod> inputParameters = m_view->UploadInputParam(index);
 
     QList<OutputParamMethod> outputParameters =

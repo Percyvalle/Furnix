@@ -1,8 +1,8 @@
 #pragma once
 #include <QObject>
 
-#include <view/main_window.h>
-#include <presenter/main_presenter.h>
+#include "application/view/main_window.h"
+#include "application/presenter/main_presenter.h"
 
 class ApplicationController : public QObject
 {

@@ -3,13 +3,9 @@
 #include <QString>
 #include <QStringList>
 
-struct CommonConstants
+namespace CommonConstants
 {
-    static const QString MethodsDirectory;
+    const QString MethodsDirectory = "methods";
 
-    static const QStringList YamlExtensions;
-};
-
-const QString CommonConstants::MethodsDirectory = "methods";
-
-const QStringList CommonConstants::YamlExtensions = { "*.yaml", "*.yml" };
+    const QStringList YamlExtensions = { "*.yaml", "*.yml" };
+}

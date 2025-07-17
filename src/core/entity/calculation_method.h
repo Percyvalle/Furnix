@@ -7,6 +7,7 @@
 class CalculationMethod
 {
 public:
+    CalculationMethod() = default;
     CalculationMethod(const CalculationMethodData& data);
 
     static CalculationMethod Load(const QString& path);
